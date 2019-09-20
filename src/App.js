@@ -6,7 +6,7 @@ import './assets/stylesheet/index.css';
 import Search from './components/Search';
 import MovieList from './components/MovieList';
 import EmptyState from './components/EmptyState';
-import DetailModal from './components/DetailModal';
+import MovieDetail from './components/MovieDetail';
 
 class App extends React.Component {
   state = {
@@ -70,7 +70,7 @@ class App extends React.Component {
         <Search handleSearch={this.handleTitleSearch} />
         {showMovies && returnedMovies && <MovieList movies={movies.Search} handleDetailSearch={this.handleDetailSearch} />}
         {showMovies && !returnedMovies && <EmptyState />}
-        {showDetail && <DetailModal movieDetail={movieDetail} />}
+        {showDetail && <MovieDetail movieDetail={movieDetail} />}
       </div>
     )
   }

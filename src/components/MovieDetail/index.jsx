@@ -2,7 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components'
 // import Movie from '../Movie';
 
-const MovieDetail = styled.div`
+const MovieDetailBox = styled.div`
   background: #14213D;
   color: #FCA311;
   width: 280px;
@@ -21,14 +21,14 @@ const MovieDetail = styled.div`
   }
 `;
 
-const DetailModal = ({movieDetail}) => {
+const MovieDetail = ({movieDetail}) => {
   return(
-    <MovieDetail>
+    <MovieDetailBox>
       <h2>{movieDetail.Title}</h2>
       <span>Rating: {movieDetail.imdbRating}</span>
       <p>{movieDetail.Plot}</p>
-    </MovieDetail>
+    </MovieDetailBox>
   );
 };
 
-export default DetailModal;
+export default MovieDetail;
