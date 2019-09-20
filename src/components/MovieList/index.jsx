@@ -9,12 +9,12 @@ const Movies = styled.ul`
   margin: 50px auto;
 `;
 
-const MovieList = ({ movies }: Props) => {
+const MovieList = ({ movies, handleDetailSearch }) => {
   return(
     <Movies>
       {
         movies.map((movie) => {
-          return <Movie movie={movie} key={movie.imdbID} />
+          return <Movie movie={movie} handleDetailSearch={handleDetailSearch} key={movie.imdbID} />
         })
       }
     </Movies>

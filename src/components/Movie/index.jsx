@@ -53,17 +53,23 @@ const Poster = styled.img`
   width: 180px;
 `;
 
-const Movie = ({ movie }: Props) => {
+const Movie = ({ movie, handleDetailSearch }) => {
+  const handleClick = (e, movieId) => {
+    e.preventDefault();
+    handleDetailSearch(movieId);
+  };
 
   return(
     <MovieBox>
-      <Poster src={movie.Poster} alt={movie.Title} />
-      <Overlay>
-        <MovieDetails>
-          <h3>{movie.Title}</h3>
-          <span>{movie.Year}</span>
-        </MovieDetails>
-      </Overlay>
+      <a href="" title="Get more details" onClick={(e) => handleClick(e, movie.imdbID)}>
+        <Poster src={movie.Poster} alt={movie.Title} />
+        <Overlay>
+          <MovieDetails>
+            <h3>{movie.Title}</h3>
+            <span>{movie.Year}</span>
+          </MovieDetails>
+        </Overlay>
+      </a>
     </MovieBox>
   );
 };

@@ -6,14 +6,34 @@ import './assets/stylesheet/index.css';
 import Search from './components/Search';
 import MovieList from './components/MovieList';
 import EmptyState from './components/EmptyState';
+import DetailModal from './components/DetailModal';
 
-class App extends React.Component<Props,State> {
+class App extends React.Component {
   state = {
     movies: {},
-    showMovies: false
+    showMovies: false,
+    movieDetail: {},
+    showDetail: false,
   };
 
-  handleSearch = (title) => {
+  handleDetailSearch = (movieId) => {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', `http://www.omdbapi.com/?apikey=91df31c3&i=${movieId}`, true);
+    xhr.send();
+    xhr.onload = () => {
+      if (xhr.status !== 200) {
+        new Noty({
+          type: 'error',
+          timeout: 2000,
+          text: 'Oops! Something went wrong. Try again!',
+        }).show();
+      } else {
+        this.setState({ movieDetail: JSON.parse(xhr.response), showDetail: true });
+      }
+    };
+  }
+
+  handleTitleSearch = (title) => {
     if(title.length >= 3) {
       let xhr = new XMLHttpRequest();
       xhr.open('GET', `http://www.omdbapi.com/?apikey=91df31c3&type=movie&s=${title}`, true);
@@ -39,17 +59,18 @@ class App extends React.Component<Props,State> {
   };
 
   componentDidMount() {
-    this.handleSearch('Love');
+    this.handleTitleSearch('Love');
   }
 
   render() {
-    const { showMovies, movies } = this.state;
+    const { showMovies, movies, showDetail, movieDetail } = this.state;
     const returnedMovies = movies.Response === 'True';
     return(
       <div className="App">
-        <Search handleSearch={this.handleSearch} />
-        {showMovies && returnedMovies && <MovieList movies={movies.Search} />}
+        <Search handleSearch={this.handleTitleSearch} />
+        {showMovies && returnedMovies && <MovieList movies={movies.Search} handleDetailSearch={this.handleDetailSearch} />}
         {showMovies && !returnedMovies && <EmptyState />}
+        {showDetail && <DetailModal movieDetail={movieDetail} />}
       </div>
     )
   }

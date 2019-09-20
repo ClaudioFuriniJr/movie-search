@@ -46,7 +46,7 @@ const SearchButton = styled.button`
   }
 `;
 
-class Search extends React.Component<Props, State> {
+class Search extends React.Component {
   state = {
     value: '',
   }
